@@ -13,9 +13,11 @@ defmodule Day1 do
   end
 
   def zip_with_rotated(list, rotation) do
-    Enum.drop(list, rotation) ++ Enum.take(list, rotation)
+    rotate(list, rotation) 
     |> Enum.zip(list)
   end
+
+  def rotate(list, k), do: Enum.drop(list, k) ++ Enum.take(list, k)
 
   def add_if_equal({x, y}, acc) when x == y, do: acc + x
   def add_if_equal(_, acc), do: acc
