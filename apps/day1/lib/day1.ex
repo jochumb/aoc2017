@@ -2,7 +2,7 @@ defmodule Day1 do
 
   def part1(num_str), do: num_str |> to_int_list |> calculate(1)
 
-  def part2(num_str), do: num_str |> to_int_list |> calculate(round(String.length(num_str)/2))
+  def part2(num_str), do: num_str |> to_int_list |> calculate(div(String.length(num_str),2))
 
   def to_int_list(num_str) do
     num_str
@@ -15,8 +15,9 @@ defmodule Day1 do
     |> Stream.cycle
     |> Stream.drop(offset)
     |> Stream.zip(num_list)
-    |> Stream.filter(fn {a, b} -> a == b end)
-    |> Enum.reduce(0, fn {a, a}, acc -> a + acc end)
+    |> Stream.filter(&(match?({x,x}, &1)))
+    |> Stream.map(&(elem(&1, 0)))
+    |> Enum.sum
   end
 
 end
