@@ -18,7 +18,7 @@ defmodule Day1Test do
   end
 
   test "Solution for part 1" do
-    input_str = Day1.filename_to_string("./input")
+    input_str = Day1Test.filename_to_string("./input")
     assert Day1.part1(input_str) == 1158
   end
 
@@ -43,8 +43,15 @@ defmodule Day1Test do
   end
 
   test "Solution for part 2" do
-    input_str = Day1.filename_to_string("./input")
+    input_str = Day1Test.filename_to_string("./input")
     assert Day1.part2(input_str) == 1132
+  end
+
+  def filename_to_string(filename) do
+    {:ok, file} = File.open(filename, [:read])
+    output_str = IO.read(file, :line) |> String.trim_trailing
+    File.close(file)
+    output_str
   end
 
 end

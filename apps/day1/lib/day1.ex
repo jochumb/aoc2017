@@ -27,11 +27,4 @@ defmodule Day1 do
       |> Enum.reduce(0, &add_if_equal/2)
   end
 
-  def filename_to_string(filename) do
-    {:ok, file} = File.open(filename, [:read])
-    output_str = IO.read(file, :line) |> String.trim_trailing
-    File.close(file)
-    output_str
-  end
-
 end
