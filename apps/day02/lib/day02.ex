@@ -1,4 +1,4 @@
-defmodule Day2 do
+defmodule Day02 do
   
   def part1(str_list) do 
     str_list 

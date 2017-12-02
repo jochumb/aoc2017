@@ -1,9 +1,9 @@
-defmodule Day1.Mixfile do
+defmodule Day01.Mixfile do
   use Mix.Project
 
   def project do
     [
-      app: :day1,
+      app: :day01,
       version: "0.1.0",
       build_path: "../../_build",
       config_path: "../../config/config.exs",
