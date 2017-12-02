@@ -1,20 +1,21 @@
 defmodule Day02 do
-  
-  def part1(str_list) do 
-    str_list 
-    |> Enum.map(&Utils.List.convert_to_int_list/1) 
+  @moduledoc "Day 2: Corruption Checksum"
+
+  def part1(str_list) do
+    str_list
+    |> Enum.map(&Utils.List.convert_to_int_list/1)
     |> Enum.map(&(Enum.max(&1) - Enum.min(&1)))
     |> Enum.sum
   end
 
-  def part2(str_list) do 
+  def part2(str_list) do
     str_list
     |> Enum.map(&Utils.List.convert_to_int_list/1)
     |> Enum.map(&row_divisable/1)
     |> Enum.sum
   end
 
-  def row_divisable(row) do
+  defp row_divisable(row) do
     row
     |> Enum.sort(&(&1 >= &2))
     |> Utils.List.combinations(2)

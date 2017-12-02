@@ -1,5 +1,6 @@
 defmodule Day01Test do
   use ExUnit.Case
+  @moduledoc "Day 1 input"
 
   test "Test input part 1" do
     assert Day01.part1("1122") == 3
@@ -10,7 +11,9 @@ defmodule Day01Test do
 
   test "Solution for part 1" do
     input_str = Utils.File.read_first_line_from_file("./input")
-    assert Day01.part1(input_str) == 1158
+    result = Day01.part1(input_str)
+    IO.puts "Day 1 part 1: #{result}"
+    assert result == 1158
   end
 
   test "Test input part 2" do
@@ -23,7 +26,9 @@ defmodule Day01Test do
 
   test "Solution for part 2" do
     input_str = Utils.File.read_first_line_from_file("./input")
-    assert Day01.part2(input_str) == 1132
+    result = Day01.part2(input_str)
+    IO.puts "Day 1 part 2: #{result}"
+    assert result == 1132
   end
 
 end

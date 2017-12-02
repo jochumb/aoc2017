@@ -1,4 +1,5 @@
 defmodule Utils.List do
+  @moduledoc "List parsing / iterating utils"
 
   @type delimiter :: String.pattern | Regex.t
   @spec convert_to_int_list(String.t) :: [integer]
@@ -13,7 +14,7 @@ defmodule Utils.List do
   def combinations(_, 0), do: [[]]
   def combinations([], _), do: []
   def combinations([h|t], m) do
-    (for l <- combinations(t, m-1), do: [h|l]) ++ combinations(t, m)
+    (for l <- combinations(t, m - 1), do: [h|l]) ++ combinations(t, m)
   end
-  
+
 end
