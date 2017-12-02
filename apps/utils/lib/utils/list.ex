@@ -1,6 +1,6 @@
 defmodule Utils.List do
 
-  @type delimiter :: String.t | Regex.t
+  @type delimiter :: String.pattern | Regex.t
   @spec convert_to_int_list(String.t) :: [integer]
   @spec convert_to_int_list(String.t, delimiter) :: [integer]
   def convert_to_int_list(num_str, delimiter \\ ~r{\s}) do
