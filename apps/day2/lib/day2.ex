@@ -29,17 +29,11 @@ defmodule Day2 do
   def row_divisables(row) do
     row
     |> Enum.sort(&(&1 >= &2))
-    |> comb(2)
+    |> Utils.Math.combinations(2)
     |> Enum.map(&List.to_tuple/1)
     |> Enum.filter(fn {x, y} -> rem(x, y) == 0 end)
     |> hd
     |> (fn {x, y} -> div(x, y) end).()
-  end
-
-  def comb(_, 0), do: [[]]
-  def comb([], _), do: []
-  def comb([h|t], m) do
-    (for l <- comb(t, m-1), do: [h|l]) ++ comb(t, m)
   end
 
 end

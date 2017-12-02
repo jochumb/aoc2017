@@ -10,7 +10,7 @@ defmodule Day2Test do
   end
 
   test "Solution for part 1" do
-    input_str = Day2Test.filename_to_string_list("./input")
+    input_str = Utils.File.read_lines_from_file("./input")
     assert Day2.part1(input_str) == 41919
   end
 
@@ -22,15 +22,8 @@ defmodule Day2Test do
   end
 
   test "Solution for part 2" do
-    input_str = Day2Test.filename_to_string_list("./input")
+    input_str = Utils.File.read_lines_from_file("./input")
     assert Day2.part2(input_str) == 303
   end
-
-  def filename_to_string_list(filename) do
-    {:ok, file} = File.open(filename, [:read])
-    output = IO.stream(file, :line) 
-      |> Enum.map(&String.trim_trailing/1)
-    File.close(file)
-    output
-  end
+  
 end
