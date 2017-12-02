@@ -1,14 +1,9 @@
 defmodule Utils.List do
 
+  @type delimiter :: String.t | Regex.t
   @spec convert_to_int_list([String.t]) :: [integer]
-  def convert_to_int_list(num_str) do
-    num_str
-    |> String.split
-    |> Enum.map(&String.to_integer/1)
-  end
-
-  @spec convert_to_int_list([String.t], String.t) :: [integer]
-  def convert_to_int_list(num_str, delimiter) do
+  @spec convert_to_int_list([String.t], delimiter) :: [integer]
+  def convert_to_int_list(num_str, delimiter \\ ~r{\s}) do
     num_str
     |> String.split(delimiter, trim: true)
     |> Enum.map(&String.to_integer/1)
