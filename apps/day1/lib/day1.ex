@@ -1,15 +1,17 @@
 defmodule Day1 do
 
-  def part1(num_str), do: num_str |> to_int_list |> calculate(1)
-
-  def part2(num_str), do: num_str |> to_int_list |> calculate(div(String.length(num_str),2))
-
-  def to_int_list(num_str) do
-    num_str
-    |> String.split("", trim: true)
-    |> Enum.map(&String.to_integer/1)
+  def part1(num_str) do
+    num_str 
+    |> Utils.List.convert_to_int_list("") 
+    |> calculate(1)
   end
 
+  def part2(num_str) do 
+    num_str 
+    |> Utils.List.convert_to_int_list("") 
+    |> calculate(div(String.length(num_str),2))
+  end
+  
   def calculate(num_list, offset) do
     num_list
     |> Stream.cycle

@@ -1,5 +1,6 @@
 defmodule Utils.File do
 
+  @spec read_first_line_from_file(String.t) :: String.t
   def read_first_line_from_file(filename) do
     {:ok, file} = File.open(filename, [:read])
     output = IO.read(file, :line) |> String.trim_trailing
@@ -7,6 +8,7 @@ defmodule Utils.File do
     output
   end
 
+  @spec read_lines_from_file(String.t) :: [String.t]
   def read_lines_from_file(filename) do
     {:ok, file} = File.open(filename, [:read])
     output = IO.stream(file, :line) 
