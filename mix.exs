@@ -5,7 +5,8 @@ defmodule Aoc2017.Mixfile do
     [
       apps_path: "apps",
       start_permanent: Mix.env == :prod,
-      deps: deps()
+      deps: deps(),
+      dialyzer: [plt_add_deps: :apps_direct]
     ]
   end
 
@@ -15,6 +16,6 @@ defmodule Aoc2017.Mixfile do
   #
   # Run "mix help deps" for examples and options.
   defp deps do
-    []
+    [{:dialyxir, "~> 0.5", only: [:dev], runtime: false}]
   end
 end
