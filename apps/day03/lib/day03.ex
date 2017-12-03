@@ -1,26 +1,26 @@
 defmodule Day03 do
   @moduledoc "Day 3: Spiral Memory"
 
-  def part1(number) do
-    number
-    |> find_ring
-    |> find_relative_location(number)
-  end
-
-  defp find_ring(number) do
-    1
-    |> Stream.iterate(&(&1 + 2))
-    |> Enum.find(&(&1 * &1 >= number))
-  end
-
-  defp find_relative_location(ring, number) do
-    prev = ring - 2
-    side = ring - 1
-    case number - prev * prev do
-      0 -> 0
-      x -> case rem(x, side) do
-        r when r < div(side, 2) -> side - r
-        r -> r
+  def part1(number) do                          # Example: 24 -> distance = 3
+    number                                      # 
+    |> find_ring                                #  17 16 15 14 13
+    |> find_relative_location(number)           #  18  5  4  3 12
+  end                                           #  19  6  1  2 11  
+                                                #  20  7  8  9 10
+  defp find_ring(number) do                     #  21 22 23 24 25
+    1                                           #
+    |> Stream.iterate(&(&1 + 2))                # [1, 3, 5, 7, ...]
+    |> Enum.find(&(&1 * &1 >= number))          # 1*1 !>= 24 ... 5*5 >= 24 -> 5
+  end                                           #
+                                                #
+  defp find_relative_location(ring, number) do  # Input: 5, 24
+    prev = ring - 2                             # previous ring = 5 - 2 = 3
+    side = ring - 1                             # one side of the ring = 5 - 1 = 4
+    case number - prev * prev do                # decrease with inner numbers = 24 - 9 = 15
+      0 -> 0                                    # zero case: 1-(-1)*(-1) = 0
+      x -> case rem(x, side) do                 # remainder by side size = 15 % 4 = 3
+        r when r < div(side, 2) -> side - r     # remainder lt 4/2=2 /< 
+        r -> r                                  # -> 3
       end
     end
   end
