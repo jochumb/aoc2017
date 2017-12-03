@@ -19,8 +19,8 @@ defmodule Day03 do
     case number - prev * prev do
       0 -> 0
       x -> case rem(x, side) do
-        r when r >= div(side, 2) -> r
-        r -> side - r
+        r when r < div(side, 2) -> side - r
+        r -> r
       end
     end
   end
@@ -72,14 +72,10 @@ defmodule Day03 do
   end
 
   defp neighbour_sum(grid, {x, y}) do
-    val(grid, {x + 1, y}) +
-      val(grid, {x + 1, y + 1}) +
-      val(grid, {x , y + 1}) +
-      val(grid, {x - 1, y + 1}) +
-      val(grid, {x - 1, y}) +
-      val(grid, {x - 1, y - 1}) +
-      val(grid, {x, y - 1}) +
-      val(grid, {x + 1, y - 1})
+    (for  xd <- -1..1,
+          yd <- -1..1,
+          do: val(grid, {x + xd, y + yd}))
+    |> Enum.sum
   end
 
   defp val(grid, coord) do
