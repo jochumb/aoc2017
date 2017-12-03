@@ -14,9 +14,14 @@ defmodule Day03 do
   end
 
   defp find_relative_location(ring, number) do
-    case number - (ring - 2) * (ring - 2) do
+    prev = ring - 2
+    side = ring - 1
+    case number - prev * prev do
       0 -> 0
-      x -> rem(x, ring - 1)
+      x -> case rem(x, side) do
+        r when r >= div(side, 2) -> r
+        r -> side - r
+      end
     end
   end
 

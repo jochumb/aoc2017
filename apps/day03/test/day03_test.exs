@@ -7,7 +7,11 @@ defmodule Day03Test do
   test "Test input day 3" do
     assert Day03.part1(1) == 0
     assert Day03.part1(12) == 3
+    assert Day03.part1(21) == 4
+    assert Day03.part1(22) == 3
     assert Day03.part1(23) == 2
+    assert Day03.part1(24) == 3
+    assert Day03.part1(25) == 4
     assert Day03.part1(1024) == 31
   end
 
