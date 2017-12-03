@@ -33,13 +33,13 @@ defmodule Day03 do
   end
 
   defp find_next(grid, coord, direction) do
-    next_direction = next_direction(coord, grid, direction)
+    next_direction = next_direction(grid, coord, direction)
     next_coord = next_coord(coord, next_direction)
-    neighbour_sum = neighbour_sum(next_coord, grid)
+    neighbour_sum = neighbour_sum(grid, next_coord)
     {Map.put(grid, next_coord, neighbour_sum), next_coord, next_direction}
   end
 
-  defp next_direction(coord, grid, direction) do
+  defp next_direction(grid, coord, direction) do
     turned_dir = turn(direction)
     case val(grid, next_coord(coord, turned_dir)) do
       0 -> turned_dir
@@ -66,7 +66,7 @@ defmodule Day03 do
     end
   end
 
-  defp neighbour_sum({x, y}, grid) do
+  defp neighbour_sum(grid, {x, y}) do
     val(grid, {x + 1, y}) +
       val(grid, {x + 1, y + 1}) +
       val(grid, {x , y + 1}) +
