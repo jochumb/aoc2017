@@ -2,13 +2,11 @@ defmodule Day06 do
   @moduledoc "Day 6: Memory Reallocation"
 
   def part1(input) do
-    {count, _} = input |> solve
-    count
+    input |> solve |> elem(0)
   end
 
   def part2(input) do
-    {_, state} = input |> solve
-    state |> find_next(state)
+    input |> solve |> elem(1) |> find_next
   end
 
   defp solve(input) do
@@ -36,6 +34,7 @@ defmodule Day06 do
     end
   end
 
+  defp find_next(state), do: find_next(state, state)
   defp find_next(map, state, steps \\ 0) do
     i = map |> min_index
     new = map |> redistribute(i)
