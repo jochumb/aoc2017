@@ -75,8 +75,8 @@ defmodule Day06 do
 
   defp next_index(map, index) do
     size = map |> Map.keys |> Enum.count
-    case index do
-      index when index + 1 < size -> index + 1
+    case index + 1 do
+      next when next < size -> next
       _ -> 0
     end
   end
