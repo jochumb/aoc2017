@@ -1,5 +1,8 @@
 defmodule Day06 do
   @moduledoc "Day 6: Memory Reallocation"
+  import Enum
+  import Map
+  import String, only: [split: 1]
 
   def part1(input) do
     input |> solve |> elem(0)
@@ -17,10 +20,10 @@ defmodule Day06 do
 
   defp to_indexed_int_map(input) do
     input
-    |> String.split
-    |> Enum.map(&String.to_integer/1)
-    |> Enum.with_index
-    |> Enum.map(fn {k, v} -> {v, k} end)
+    |> split
+    |> map(&String.to_integer/1)
+    |> with_index
+    |> map(fn {k, v} -> {v, k} end)
     |> Map.new
   end
 
@@ -46,18 +49,11 @@ defmodule Day06 do
   end
 
   defp min_index(map) do
-    {index, _} = map
-    |> Map.keys
-    |> Enum.reduce({0, 0}, &(min_value(map, &1, &2)))
-    index
-  end
-
-  defp min_value(map, 0, _), do: {0, map[0]}
-  defp min_value(map, index, {_, val} = acc) do
-    case map[index] do
-      c when c > val -> {index, c}
-      _ -> acc
-    end
+    map
+    |> Map.to_list
+    |> filter(&(elem(&1, 1) == map |> values |> max))
+    |> map(&(elem(&1, 0)))
+    |> min
   end
 
   defp redistribute(map, index) do
@@ -75,10 +71,6 @@ defmodule Day06 do
   end
 
   defp next_index(map, index) do
-    size = map |> Map.keys |> Enum.count
-    case index + 1 do
-      next when next < size -> next
-      _ -> 0
-    end
+    rem index + 1, map |> keys |> count
   end
 end
