@@ -61,15 +61,16 @@ defmodule Day06 do
 
   defp redistribute(map, index) do
     %{^index => value} = map
-    map = %{map | index => 0}
-    redistribute_to_0(map, next_index(map, index), value)
+    %{map | index => 0}
+    |> redistribute_to_0(index, value)
   end
 
   defp redistribute_to_0(map, _, 0), do: map
   defp redistribute_to_0(map, index, decr) do
+    index = map |> next_index(index)
     %{^index => val} = map
-    map = %{map | index => val + 1}
-    map |> redistribute_to_0(next_index(map, index), decr - 1)
+    %{map | index => val + 1}
+    |> redistribute_to_0(index, decr - 1)
   end
 
   defp next_index(map, index) do
