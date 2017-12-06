@@ -2,17 +2,19 @@ defmodule Day06 do
   @moduledoc "Day 6: Memory Reallocation"
 
   def part1(input) do
-    {count, _} = input
-    |> to_indexed_int_map
-    |> solve
+    {count, _} = input |> solve
     count
   end
 
   def part2(input) do
-    {_, state} = input
-    |> to_indexed_int_map
-    |> solve
+    {_, state} = input |> solve
     state |> find_next(state)
+  end
+
+  defp solve(input) do
+    input
+    |> to_indexed_int_map
+    |> find_first_dupe
   end
 
   defp to_indexed_int_map(input) do
@@ -24,13 +26,13 @@ defmodule Day06 do
     |> Map.new
   end
 
-  defp solve(map, seen \\ [], steps \\ 0) do
+  defp find_first_dupe(map, seen \\ [], steps \\ 0) do
     i = map |> min_index
     new = map |> redistribute(i)
     if new in seen do
       {steps + 1, new}
     else
-      solve(new, [new | seen], steps + 1)
+      find_first_dupe(new, [new | seen], steps + 1)
     end
   end
 
