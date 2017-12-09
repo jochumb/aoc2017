@@ -17,7 +17,7 @@ defmodule Day06Test do
     assert Day06.part2("0	2	7	0") == 4
   end
 
-  test "Solution for part 6" do
+  test "Solution for part 2" do
     input_str = Utils.File.read_first_line_from_file("./input")
     result = Day06.part2(input_str)
     IO.puts "Day 6 part 2: #{result}"
