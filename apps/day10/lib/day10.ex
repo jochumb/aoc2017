@@ -21,26 +21,31 @@ defmodule Day10 do
     |> to_hexadecimal
   end
 
-  defp iterate(_, _, remaining \\ 1, current \\ 0, skip \\ 0)
+  defp iterate(_, _, remaining \\ 1, index \\ 0, skip \\ 0)
   defp iterate(_, list, 0, _, _), do: list
-  defp iterate(input, list, remaining, current, skip) do
-    {list, current, skip} = consume(input, list, current, skip)
-    iterate(input, list, remaining - 1, current, skip)
+  defp iterate(input, list, remaining, index, skip) do
+    {list, index, skip} = consume(input, list, index, skip)
+    iterate(input, list, remaining - 1, index, skip)
   end
 
-  defp consume([], list, current, skip), do: {list, current, skip}
-  defp consume([h | t], list, current, skip) do
-    {rest1, first} = Enum.split(list, current)
-    {first, rest2} = Enum.split(first, h)
-    next = case h - Enum.count(first) do
-      0 -> rest1 ++ Enum.reverse(first) ++ rest2
+  defp consume([], list, index, skip), do: {list, index, skip}
+  defp consume([h | t], list, index, skip) do
+    next_list = reverse(list, index, h)
+    next_index = rem(index + h + skip, Enum.count(list))
+    consume(t, next_list, next_index, skip + 1)
+  end
+
+  defp reverse(list, start, size) do
+    {front, to_reverse} = Enum.split(list, start)
+    {to_reverse, back} = Enum.split(to_reverse, size)
+    case size - Enum.count(to_reverse) do
+      0 -> front ++ Enum.reverse(to_reverse) ++ back
       x ->
-        {second, rest} = Enum.split(rest1, x)
-        reversed = Enum.reverse(first ++ second)
+        {second_part, rest} = Enum.split(front, x)
+        reversed = Enum.reverse(to_reverse ++ second_part)
         {back, front} = Enum.split(reversed, x * -1)
         front ++ rest ++ back
     end
-    consume(t, next, rem(current + h + skip, Enum.count(list)), skip + 1)
   end
 
   defp product_of_first_two([x | [y | _]]), do: x * y
