@@ -11,7 +11,7 @@ defmodule Day12 do
   def part2(input) do
     input
     |> parse_to_map
-    |> find_all_group
+    |> find_all_groups_async
     |> Enum.uniq
     |> Enum.count
   end
@@ -24,12 +24,15 @@ defmodule Day12 do
     find_group(map, list, new_acc)
   end
 
-  defp find_all_group(map, keys \\ nil, acc \\ [])
-  defp find_all_group(_, [], acc), do: acc
-  defp find_all_group(map, nil, acc), do: find_all_group(map, Map.keys(map), acc)
-  defp find_all_group(map, [h|t], acc) do
-    new_acc = [(map |> find_group([h]) |> Enum.sort)|acc]
-    find_all_group(map, t, new_acc)
+  defp find_all_groups_async(map) do
+    map
+    |> Map.keys
+    |> Enum.map(
+      fn key -> Task.async(
+        fn -> find_group(map, [key]) end)
+      end)
+    |> Enum.map(fn worker -> Task.await(worker) end)
+    |> Enum.map(&Enum.sort/1)
   end
 
   defp parse_to_map(input) do
