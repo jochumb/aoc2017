@@ -27,15 +27,24 @@ defmodule Day13 do
     end
   end
 
-  defp wait(map), do: wait(map, Map.keys(map))
-  defp wait(map, depths, delay \\ 0) do
-    case first_caught(map, depths, delay) do
-      nil -> delay
-      _ -> wait(map, depths, delay + 1)
-    end
+  defp wait(map), do: wait_flow(map, Map.keys(map))
+  defp wait_flow(map, depths) do
+    0
+    |> Stream.iterate(& &1 + 1)
+    |> Flow.from_enumerable
+    |> Flow.map(
+      fn delay ->
+        case find_first_caught(map, depths, delay) do
+          nil -> delay
+          _ -> nil
+        end
+      end)
+    |> Flow.filter(&(&1 != nil))
+    |> Enum.take(1)
+    |> hd
   end
 
-  defp first_caught(map, depths, delay) do
+  defp find_first_caught(map, depths, delay) do
     depths
     |> Enum.find(
       fn depth ->

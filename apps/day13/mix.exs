@@ -26,6 +26,7 @@ defmodule Day13.Mixfile do
   defp deps do
     [
       {:utils, in_umbrella: true},
+      {:flow, "~> 0.12.0"}
     ]
   end
 end
